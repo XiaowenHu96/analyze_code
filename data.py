@@ -22,7 +22,10 @@ for dirpath, dirnames, filenames in os.walk(root_dir):
         except Exception as e: 
             pass
 
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+text_splitter = CharacterTextSplitter(chunk_size=1024, chunk_overlap=0)
+# NOTE: Xiaowen 
+# Can also use RecursiveCharacterTextSplitter.from_language(language=Language.C, chunk_size=100, chunk_overlap=0)
+# No real differences noticed from experiment
 texts = text_splitter.split_documents(docs)
 
 db = DeepLake(dataset_path=f"hub://{USERNAME}/doc", embedding_function=embeddings, public=False) 
